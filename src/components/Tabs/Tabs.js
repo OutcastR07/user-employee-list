@@ -36,15 +36,25 @@ export default function ColorTabs() {
   };
 
   const renderUserList = () => {
+    let filteredUserList = [];
     if (value === 0) {
-      const filteredUserList = userList.filter(
+      filteredUserList = userList.filter(
         (user) => user.employeeType === "Admin"
       );
-      return <AdminUserList userList={filteredUserList} />;
     } else if (value === 1) {
-      const filteredUserList = userList.filter(
+      filteredUserList = userList.filter(
         (user) => user.employeeType === "Employee"
       );
+    }
+
+    filteredUserList = filteredUserList.filter((user) => {
+      const fullName = `${user.firstName} ${user.lastName}`;
+      return fullName.toLowerCase().includes(searchValue.toLowerCase());
+    });
+
+    if (value === 0) {
+      return <AdminUserList userList={filteredUserList} />;
+    } else if (value === 1) {
       return <EmployeeUserList userList={filteredUserList} />;
     }
     return null;

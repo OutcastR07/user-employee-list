@@ -5,6 +5,7 @@ import Tabs from "@mui/material/Tabs";
 import TextField from "@mui/material/TextField";
 import * as React from "react";
 import { AdminUserList, EmployeeUserList } from "../UserList/UserList";
+import { AddUserModal } from "../UserModal/AddUserModal";
 
 export default function ColorTabs() {
   const [value, setValue] = React.useState(0);
@@ -14,6 +15,7 @@ export default function ColorTabs() {
   const [districtList, setDistrictList] = React.useState([]);
   const [selectedDivision, setSelectedDivision] = React.useState("all");
   const [selectedDistrict, setSelectedDistrict] = React.useState("all");
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
 
   React.useEffect(() => {
     fetchUserList();
@@ -80,6 +82,39 @@ export default function ColorTabs() {
     setSelectedDistrict(districtId);
   };
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleSaveUser = async (userData) => {
+    // Perform save user operation using the provided API endpoint
+    try {
+      const response = await fetch(
+        "http://59.152.62.177:8085/api/Employee/SaveEmployeeInformation",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
+      const data = await response.json();
+      if (response.ok) {
+        setUserList([...userList, data]); // Add the saved user to the user list
+        setIsModalOpen(false);
+      } else {
+        console.error("Failed to save user:", data);
+      }
+    } catch (error) {
+      console.error("Error saving user:", error);
+    }
+  };
+
   const renderUserList = () => {
     let filteredUserList = [];
     if (value === 0) {
@@ -136,11 +171,7 @@ export default function ColorTabs() {
           margin: "20px",
         }}
       >
-        <Button
-          variant="contained"
-          color="primary"
-          onClick={() => console.log("Add User clicked")}
-        >
+        <Button variant="contained" color="primary" onClick={handleOpenModal}>
           Add User
         </Button>
         <TextField
@@ -153,6 +184,11 @@ export default function ColorTabs() {
         />
       </Box>
       {renderUserList()}
+      <AddUserModal
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+        onSave={handleSaveUser}
+      />
     </Box>
   );
 }

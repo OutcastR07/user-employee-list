@@ -89,7 +89,7 @@ export function EmployeeUserList({
         </TextField>
       </Box>
 
-      <Box sx={{ marginTop: "20px" }}>
+      <Box sx={{ marginTop: "20px", marginBottom: "20px" }}>
         <TextField
           id="district-select"
           select

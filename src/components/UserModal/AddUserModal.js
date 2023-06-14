@@ -1,4 +1,4 @@
-import { Box, Button, Modal, TextField } from "@mui/material";
+import { Box, Button, MenuItem, Modal, TextField } from "@mui/material";
 import React from "react";
 
 export function AddUserModal({ isOpen, onClose, onSave }) {
@@ -12,7 +12,7 @@ export function AddUserModal({ isOpen, onClose, onSave }) {
       firstName,
       lastName,
       employeeType,
-      districtId,
+      districeId: districtId,
     };
     onSave(userData);
     setFirstName("");
@@ -49,22 +49,21 @@ export function AddUserModal({ isOpen, onClose, onSave }) {
           sx={{ mb: 2 }}
         />
         <TextField
+          select
           label="Employee Type"
           value={employeeType}
           onChange={(e) => setEmployeeType(e.target.value)}
           fullWidth
           sx={{ mb: 2 }}
-        />
+        >
+          <MenuItem value="Admin">Admin</MenuItem>
+          <MenuItem value="Employee">Employee</MenuItem>
+        </TextField>
         <TextField
           label="District ID"
           type="number"
           value={districtId}
-          onChange={(e) => {
-            const value = parseInt(e.target.value);
-            if (!isNaN(value) && value >= 0) {
-              setDistrictId(value);
-            }
-          }}
+          onChange={(e) => setDistrictId(parseInt(e.target.value))}
           fullWidth
           sx={{ mb: 2 }}
         />

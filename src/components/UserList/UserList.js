@@ -47,13 +47,26 @@ export function AdminUserList({ userList }) {
 
 export function EmployeeUserList({
   userList,
-  divisionList,
-  districtList,
+  divisionList = [],
+  districtList = [],
   selectedDivision,
   selectedDistrict,
   onDivisionChange,
   onDistrictChange,
 }) {
+  // Filter the user list based on the selected division and district
+  let filteredUserList = userList;
+  if (selectedDivision !== "all") {
+    filteredUserList = filteredUserList.filter(
+      (user) => user.divisionId === selectedDivision
+    );
+  }
+  if (selectedDistrict !== "all") {
+    filteredUserList = filteredUserList.filter(
+      (user) => user.districeID === selectedDistrict
+    );
+  }
+
   return (
     <Box sx={{ margin: "20px" }}>
       <Box sx={{ marginTop: "20px" }}>
@@ -67,9 +80,10 @@ export function EmployeeUserList({
           onChange={onDivisionChange}
           fullWidth
         >
+          <MenuItem value="all">All Division</MenuItem>
           {divisionList.map((division) => (
             <MenuItem key={division.divID} value={division.divID}>
-              {division.divisionName}
+              {division.divisionName.trim()}
             </MenuItem>
           ))}
         </TextField>
@@ -86,9 +100,10 @@ export function EmployeeUserList({
           onChange={onDistrictChange}
           fullWidth
         >
+          <MenuItem value="all">All District</MenuItem>
           {districtList.map((district) => (
             <MenuItem key={district.districtID} value={district.districtID}>
-              {district.districtName}
+              {district.districtName.trim()}
             </MenuItem>
           ))}
         </TextField>
@@ -106,16 +121,16 @@ export function EmployeeUserList({
             </TableRow>
           </TableHead>
           <TableBody>
-            {userList.map((user) => (
+            {filteredUserList.map((user) => (
               <TableRow key={user.empID}>
                 <TableCell sx={{ width: "20%" }}>{user.empID}</TableCell>
                 <TableCell sx={{ width: "20%" }}>{user.firstName}</TableCell>
                 <TableCell sx={{ width: "20%" }}>{user.lastName}</TableCell>
                 <TableCell sx={{ width: "20%" }}>
-                  {user.disvision.trim()}
+                  {user.disvision ? user.disvision.trim() : ""}
                 </TableCell>
                 <TableCell sx={{ width: "20%" }}>
-                  {user.district.trim()}
+                  {user.district ? user.district.trim() : ""}
                 </TableCell>
               </TableRow>
             ))}

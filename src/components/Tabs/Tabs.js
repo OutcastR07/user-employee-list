@@ -12,8 +12,8 @@ export default function ColorTabs() {
   const [userList, setUserList] = React.useState([]);
   const [divisionList, setDivisionList] = React.useState([]);
   const [districtList, setDistrictList] = React.useState([]);
-  const [selectedDivision, setSelectedDivision] = React.useState("");
-  const [selectedDistrict, setSelectedDistrict] = React.useState("");
+  const [selectedDivision, setSelectedDivision] = React.useState("all");
+  const [selectedDistrict, setSelectedDistrict] = React.useState("all");
 
   React.useEffect(() => {
     fetchUserList();
@@ -68,6 +68,11 @@ export default function ColorTabs() {
     const divisionId = event.target.value;
     setSelectedDivision(divisionId);
     fetchDistrictList(divisionId);
+
+    // Automatically select "All District" when "All Division" is selected
+    if (divisionId === "all") {
+      setSelectedDistrict("all");
+    }
   };
 
   const handleDistrictChange = (event) => {

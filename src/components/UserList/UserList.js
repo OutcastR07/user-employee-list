@@ -25,11 +25,15 @@ export function AdminUserList({ userList }) {
           <TableBody>
             {userList.map((user) => (
               <TableRow key={user.empID}>
-                <TableCell>{user.empID}</TableCell>
-                <TableCell>{user.firstName}</TableCell>
-                <TableCell>{user.lastName}</TableCell>
-                <TableCell>{user.disvision.trim()}</TableCell>
-                <TableCell>{user.district.trim()}</TableCell>
+                <TableCell sx={{ width: "20%" }}>{user.empID}</TableCell>
+                <TableCell sx={{ width: "20%" }}>{user.firstName}</TableCell>
+                <TableCell sx={{ width: "20%" }}>{user.lastName}</TableCell>
+                <TableCell sx={{ width: "20%" }}>
+                  {user.disvision.trim()}
+                </TableCell>
+                <TableCell sx={{ width: "20%" }}>
+                  {user.district.trim()}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
@@ -56,11 +60,15 @@ export function EmployeeUserList({ userList }) {
           <TableBody>
             {userList.map((user) => (
               <TableRow key={user.empID}>
-                <TableCell>{user.empID}</TableCell>
-                <TableCell>{user.firstName}</TableCell>
-                <TableCell>{user.lastName}</TableCell>
-                <TableCell>{user.disvision.trim()}</TableCell>
-                <TableCell>{user.district.trim()}</TableCell>
+                <TableCell sx={{ width: "20%" }}>{user.empID}</TableCell>
+                <TableCell sx={{ width: "20%" }}>{user.firstName}</TableCell>
+                <TableCell sx={{ width: "20%" }}>{user.lastName}</TableCell>
+                <TableCell sx={{ width: "20%" }}>
+                  {user.disvision.trim()}
+                </TableCell>
+                <TableCell sx={{ width: "20%" }}>
+                  {user.district.trim()}
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>

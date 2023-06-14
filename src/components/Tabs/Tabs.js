@@ -10,9 +10,14 @@ export default function ColorTabs() {
   const [value, setValue] = React.useState(0);
   const [searchValue, setSearchValue] = React.useState("");
   const [userList, setUserList] = React.useState([]);
+  const [divisionList, setDivisionList] = React.useState([]);
+  const [districtList, setDistrictList] = React.useState([]);
+  const [selectedDivision, setSelectedDivision] = React.useState("");
+  const [selectedDistrict, setSelectedDistrict] = React.useState("");
 
   React.useEffect(() => {
     fetchUserList();
+    fetchDivisionList();
   }, []);
 
   const fetchUserList = async () => {
@@ -27,12 +32,47 @@ export default function ColorTabs() {
     }
   };
 
+  const fetchDivisionList = async () => {
+    try {
+      const response = await fetch(
+        "http://59.152.62.177:8085/api/Employee/Division"
+      );
+      const data = await response.json();
+      setDivisionList(data.readDivisionData);
+    } catch (error) {
+      console.error("Error fetching division list:", error);
+    }
+  };
+
+  const fetchDistrictList = async (divisionId) => {
+    try {
+      const response = await fetch(
+        `http://59.152.62.177:8085/api/Employee/District/${divisionId}`
+      );
+      const data = await response.json();
+      setDistrictList(data.readDistrictData);
+    } catch (error) {
+      console.error("Error fetching district list:", error);
+    }
+  };
+
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   const handleSearchChange = (event) => {
     setSearchValue(event.target.value);
+  };
+
+  const handleDivisionChange = (event) => {
+    const divisionId = event.target.value;
+    setSelectedDivision(divisionId);
+    fetchDistrictList(divisionId);
+  };
+
+  const handleDistrictChange = (event) => {
+    const districtId = event.target.value;
+    setSelectedDistrict(districtId);
   };
 
   const renderUserList = () => {
@@ -55,7 +95,17 @@ export default function ColorTabs() {
     if (value === 0) {
       return <AdminUserList userList={filteredUserList} />;
     } else if (value === 1) {
-      return <EmployeeUserList userList={filteredUserList} />;
+      return (
+        <EmployeeUserList
+          userList={filteredUserList}
+          divisionList={divisionList}
+          districtList={districtList}
+          selectedDivision={selectedDivision}
+          selectedDistrict={selectedDistrict}
+          onDivisionChange={handleDivisionChange}
+          onDistrictChange={handleDistrictChange}
+        />
+      );
     }
     return null;
   };

@@ -59,7 +59,12 @@ export function AddUserModal({ isOpen, onClose, onSave }) {
           label="District ID"
           type="number"
           value={districtId}
-          onChange={(e) => setDistrictId(parseInt(e.target.value))}
+          onChange={(e) => {
+            const value = parseInt(e.target.value);
+            if (!isNaN(value) && value >= 0) {
+              setDistrictId(value);
+            }
+          }}
           fullWidth
           sx={{ mb: 2 }}
         />

@@ -80,7 +80,11 @@ export function UserDetails() {
 
   return (
     <Box sx={{ margin: "20px" }}>
-      <h1 style={{ marginBottom: "20px" }}>User Details</h1>
+      <h1
+        style={{ marginBottom: "30px", fontSize: "25px", fontWeight: "bold" }}
+      >
+        User Details
+      </h1>
       <TextField
         label="First Name"
         value={user.firstName}

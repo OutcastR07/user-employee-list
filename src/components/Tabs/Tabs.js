@@ -4,6 +4,7 @@ import Tab from "@mui/material/Tab";
 import Tabs from "@mui/material/Tabs";
 import TextField from "@mui/material/TextField";
 import * as React from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import { AdminUserList, EmployeeUserList } from "../UserList/UserList";
 import { AddUserModal } from "../UserModal/AddUserModal";
 
@@ -16,11 +17,24 @@ export default function ColorTabs() {
   const [selectedDivision, setSelectedDivision] = React.useState("all");
   const [selectedDistrict, setSelectedDistrict] = React.useState("all");
   const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [isModalSaved, setIsModalSaved] = React.useState(false); // Track if the modal save action is performed
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   React.useEffect(() => {
     fetchUserList();
     fetchDivisionList();
-  }, []);
+  }, [isModalSaved]); // Add isModalSaved to the dependency array
+
+  React.useEffect(() => {
+    if (isModalSaved) {
+      // Refresh the page while preserving the active tab
+      const activeTab = new URLSearchParams(location.search).get("tab");
+      navigate(`?tab=${activeTab}`, { replace: true });
+      setIsModalSaved(false); // Reset isModalSaved to false after refreshing the page
+    }
+  }, [isModalSaved, location.search, navigate]);
 
   const fetchUserList = async () => {
     try {
@@ -107,6 +121,7 @@ export default function ColorTabs() {
       if (response.ok) {
         setUserList([...userList, data]); // Add the saved user to the user list
         setIsModalOpen(false);
+        setIsModalSaved(true); // Set isModalSaved to true after successfully saving the user
       } else {
         console.error("Failed to save user:", data);
       }

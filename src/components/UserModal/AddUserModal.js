@@ -63,8 +63,9 @@ export function AddUserModal({ isOpen, onClose, onSave }) {
           label="District ID"
           type="number"
           value={districtId}
-          onChange={(e) => setDistrictId(parseInt(e.target.value))}
+          onChange={(e) => setDistrictId(parseInt(e.target.value, 0))}
           fullWidth
+          inputProps={{ min: 0 }}
           sx={{ mb: 2 }}
         />
         <Button variant="contained" color="primary" onClick={handleSave}>

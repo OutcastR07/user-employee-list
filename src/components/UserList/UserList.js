@@ -1,4 +1,4 @@
-import { MenuItem } from "@mui/material";
+import { Button, MenuItem } from "@mui/material";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -9,6 +9,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TextField from "@mui/material/TextField";
 import * as React from "react";
+import { Link } from "react-router-dom";
 
 export function AdminUserList({ userList }) {
   return (
@@ -35,6 +36,16 @@ export function AdminUserList({ userList }) {
                 </TableCell>
                 <TableCell sx={{ width: "20%" }}>
                   {user.district.trim()}
+                </TableCell>
+                <TableCell sx={{ width: "10%" }}>
+                  <Button
+                    component={Link}
+                    to={`/user-details/${user.empID}`}
+                    variant="contained"
+                    color="primary"
+                  >
+                    Details
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}
@@ -131,6 +142,16 @@ export function EmployeeUserList({
                 </TableCell>
                 <TableCell sx={{ width: "20%" }}>
                   {user.district ? user.district.trim() : ""}
+                </TableCell>
+                <TableCell sx={{ width: "10%" }}>
+                  <Button
+                    component={Link}
+                    to={`/user-details/${user.empID}`}
+                    variant="contained"
+                    color="primary"
+                  >
+                    Details
+                  </Button>
                 </TableCell>
               </TableRow>
             ))}

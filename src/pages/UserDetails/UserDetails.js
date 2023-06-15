@@ -19,7 +19,13 @@ export function UserDetails() {
       `http://59.152.62.177:8085/api/Employee/IndividualEmployeeData/${empID}`
     )
       .then((response) => response.json())
-      .then((data) => setUser(data.readEmployeeData[0]))
+      .then((data) => {
+        setUser(data.readEmployeeData[0]);
+        setFirstName(data.readEmployeeData[0].firstName);
+        setLastName(data.readEmployeeData[0].lastName);
+        setEmployeeType(data.readEmployeeData[0].employeeType);
+        setDistrictId(data.readEmployeeData[0].districtId);
+      })
       .catch((error) => console.log(error));
   }, [empID]);
 

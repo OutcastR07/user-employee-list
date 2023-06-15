@@ -177,13 +177,13 @@ export default function ColorTabs() {
       <Tabs
         value={value}
         onChange={handleChange}
-        textColor="secondary"
-        indicatorColor="secondary"
-        aria-label="secondary tabs example"
+        textColor="primary"
+        indicatorColor="primary"
+        aria-label="tabs example"
         centered
       >
-        <Tab label="User" sx={{ fontWeight: "bold" }} />
-        <Tab label="Employee" sx={{ fontWeight: "bold" }} />
+        <Tab label="User" sx={{ fontWeight: "bold", fontSize: "1.2rem" }} />
+        <Tab label="Employee" sx={{ fontWeight: "bold", fontSize: "1.2rem" }} />
       </Tabs>
       <Box
         sx={{

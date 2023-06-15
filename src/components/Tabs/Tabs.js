@@ -5,6 +5,7 @@ import Tabs from "@mui/material/Tabs";
 import TextField from "@mui/material/TextField";
 import * as React from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import { BounceLoader } from "react-spinners";
 import { AdminUserList, EmployeeUserList } from "../UserList/UserList";
 import { AddUserModal } from "../UserModal/AddUserModal";
 
@@ -18,6 +19,7 @@ export default function ColorTabs() {
   const [selectedDistrict, setSelectedDistrict] = React.useState("all");
   const [isModalOpen, setIsModalOpen] = React.useState(false);
   const [isModalSaved, setIsModalSaved] = React.useState(false); // Track if the modal save action is performed
+  const [isLoading, setIsLoading] = React.useState(true); // Track if data is being fetched
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -38,13 +40,18 @@ export default function ColorTabs() {
 
   const fetchUserList = async () => {
     try {
+      setIsLoading(true); // Set loading state to true while fetching data
+      // Simulate delay for at least 1 second
+      await new Promise((resolve) => setTimeout(resolve, 1000));
       const response = await fetch(
         "http://59.152.62.177:8085/api/Employee/EmployeeData"
       );
       const data = await response.json();
       setUserList(data.readEmployeeData);
+      setIsLoading(false); // Data fetching completed, set isLoading to false
     } catch (error) {
       console.error("Error fetching user list:", error);
+      setIsLoading(false); // Data fetching failed, set isLoading to false
     }
   };
 
@@ -198,7 +205,20 @@ export default function ColorTabs() {
           onChange={handleSearchChange}
         />
       </Box>
-      {renderUserList()}
+      {isLoading ? (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "400px",
+          }}
+        >
+          <BounceLoader color="#368bd6" />
+        </Box>
+      ) : (
+        renderUserList()
+      )}
       <AddUserModal
         isOpen={isModalOpen}
         onClose={handleCloseModal}

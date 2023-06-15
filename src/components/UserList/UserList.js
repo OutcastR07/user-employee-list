@@ -15,29 +15,38 @@ export function AdminUserList({ userList }) {
   return (
     <Box sx={{ margin: "20px" }}>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="Admin User List">
+        <Table
+          sx={{ minWidth: 650, border: "1px solid #ccc", borderRadius: "4px" }}
+          aria-label="Admin User List"
+        >
           <TableHead>
             <TableRow>
-              <TableCell>Employee ID</TableCell>
-              <TableCell>First Name</TableCell>
-              <TableCell>Last Name</TableCell>
-              <TableCell>Division</TableCell>
-              <TableCell>District</TableCell>
+              <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                Employee ID
+              </TableCell>
+              <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                First Name
+              </TableCell>
+              <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                Last Name
+              </TableCell>
+              <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                Division
+              </TableCell>
+              <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                District
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {userList.map((user) => (
               <TableRow key={user.empID}>
-                <TableCell sx={{ width: "20%" }}>{user.empID}</TableCell>
-                <TableCell sx={{ width: "20%" }}>{user.firstName}</TableCell>
-                <TableCell sx={{ width: "20%" }}>{user.lastName}</TableCell>
-                <TableCell sx={{ width: "20%" }}>
-                  {user.disvision.trim()}
-                </TableCell>
-                <TableCell sx={{ width: "20%" }}>
-                  {user.district.trim()}
-                </TableCell>
-                <TableCell sx={{ width: "10%" }}>
+                <TableCell align="center">{user.empID}</TableCell>
+                <TableCell align="center">{user.firstName}</TableCell>
+                <TableCell align="center">{user.lastName}</TableCell>
+                <TableCell align="center">{user.disvision.trim()}</TableCell>
+                <TableCell align="center">{user.district.trim()}</TableCell>
+                <TableCell align="center">
                   <Button
                     component={Link}
                     to={`/user-details/${user.empID}`}
@@ -121,29 +130,42 @@ export function EmployeeUserList({
       </Box>
 
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} aria-label="Employee User List">
+        <Table
+          sx={{ minWidth: 650, border: "1px solid #ccc", borderRadius: "4px" }}
+          aria-label="Employee User List"
+        >
           <TableHead>
             <TableRow>
-              <TableCell>Employee ID</TableCell>
-              <TableCell>First Name</TableCell>
-              <TableCell>Last Name</TableCell>
-              <TableCell>Division</TableCell>
-              <TableCell>District</TableCell>
+              <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                Employee ID
+              </TableCell>
+              <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                First Name
+              </TableCell>
+              <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                Last Name
+              </TableCell>
+              <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                Division
+              </TableCell>
+              <TableCell align="center" sx={{ fontWeight: "bold" }}>
+                District
+              </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {filteredUserList.map((user) => (
               <TableRow key={user.empID}>
-                <TableCell sx={{ width: "20%" }}>{user.empID}</TableCell>
-                <TableCell sx={{ width: "20%" }}>{user.firstName}</TableCell>
-                <TableCell sx={{ width: "20%" }}>{user.lastName}</TableCell>
-                <TableCell sx={{ width: "20%" }}>
+                <TableCell align="center">{user.empID}</TableCell>
+                <TableCell align="center">{user.firstName}</TableCell>
+                <TableCell align="center">{user.lastName}</TableCell>
+                <TableCell align="center">
                   {user.disvision ? user.disvision.trim() : ""}
                 </TableCell>
-                <TableCell sx={{ width: "20%" }}>
+                <TableCell align="center">
                   {user.district ? user.district.trim() : ""}
                 </TableCell>
-                <TableCell sx={{ width: "10%" }}>
+                <TableCell align="center">
                   <Button
                     component={Link}
                     to={`/user-details/${user.empID}`}

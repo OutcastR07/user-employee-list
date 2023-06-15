@@ -4,12 +4,10 @@ const Footer = () => {
   return (
     <footer className="bg-gray-800 py-8">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-around px-8 md:grid-cols-3">
+        <div className="flex justify-around gap-x-8 md:grid-cols-3">
           <div className="md:col-span-1">
-            <h3 className="text-xl font-semibold text-white mb-4">
-              Techno Geek
-            </h3>
-            <p className="text-gray-300 mb-4">Sector-11, Uttara, Dhaka</p>
+            <h3 className="text-xl font-semibold text-white mb-4">Debonair</h3>
+            <p className="text-gray-300 mb-4">Dhaka, Bangladesh</p>
             <p className="text-gray-300">Phone: +880 1234 5678 91</p>
           </div>
           <div className="md:col-span-1">
@@ -64,7 +62,7 @@ const Footer = () => {
         </div>
         <hr className="border-gray-700 my-8" />
         <p className="text-center text-gray-300">
-          &copy; {new Date().getFullYear()} Company Name. All rights reserved.
+          &copy; {new Date().getFullYear()} Debonair. All rights reserved.
         </p>
       </div>
     </footer>

@@ -121,11 +121,12 @@ export function EmployeeUserList({
           fullWidth
         >
           <MenuItem value="all">All District</MenuItem>
-          {districtList.map((district) => (
-            <MenuItem key={district.districtID} value={district.districtID}>
-              {district.districtName.trim()}
-            </MenuItem>
-          ))}
+          {districtList &&
+            districtList.map((district) => (
+              <MenuItem key={district.districtID} value={district.districtID}>
+                {district.districtName.trim()}
+              </MenuItem>
+            ))}
         </TextField>
       </Box>
 
